@@ -1,0 +1,7 @@
+.env
+
+package-lock.json
+
+/node_modules
+
+auth-service-a7eb6-firebase-adminsdk-fbsvc-1f69332d90.json
