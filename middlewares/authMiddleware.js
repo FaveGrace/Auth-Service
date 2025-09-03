@@ -1,14 +1,13 @@
-const {auth} = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
+const User = require('../models/User');
 
 exports.authMiddleware = async (req, res, next) => {
-    const authHeader = req.headers.authorization;
-    if(!authHeader) return res.status(401).json({message: 'No token provided.'});
-
-    const token = authHeader.split(' ')[1];
+    const token = req.headers.authorization?.split(' ')[1];
+    if(!token) return res.status(401).json({message: 'No token provided.'});
 
     try{
-        const decoded = await admin.auth().verifyIdToken(token);
-        req.user = decoded;
+        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN);
+        req.user = await User.findById(decoded.id);
         next();
     }catch(error) {
         return res.status(403).json({message: 'Invalid or expired token.'});

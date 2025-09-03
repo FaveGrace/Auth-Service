@@ -3,13 +3,10 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cors = require('cors');
-//const nodemailer = require('nodemailer');
 const cookieParser = require('cookie-parser');
 
 
 dotenv.config();
-
-//const {initFirebase} = require('./utils/firebase');
 
 const authRoutes = require('./routes/authRoutes');
 
@@ -30,15 +27,6 @@ mongoose.connect(process.env.MONGODB_URL)
         console.log(`Server is running on port ${PORT}`);
     });
 });
-
-//for login notification
-// const transporter = nodemailer.createTransport({
-//     service: 'gmail',
-//     auth: {
-//         user: process.env.EMAIL, password: process.env.EMAIL_PASSWORD
-//     }
-// });
-// app.set('transporter', transporter);
 
 app.use('/api/auth', authRoutes);
 
